@@ -32,7 +32,7 @@ const closeStat = document.querySelector(".close-stat");
 const openStat = document.querySelector(".open-stat");
 
 let stopTimer = false;
-let timeAtGame = 12000; //0
+let timeAtGame = 120000; //0
 let restTime = timeAtGame;
 let time;
 
