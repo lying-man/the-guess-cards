@@ -1,0 +1,437 @@
+
+/* fonts */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: sans-serif;
+}
+
+.wrapper {
+    min-height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    padding: 4px 20px;
+    cursor: default;
+    margin-bottom: 0px;
+    position: relative;
+}
+
+.main-title:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 40px;
+    width: 40px;
+    top: 50%;
+    right: -25px;
+    background: url("../Images/ghost.svg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    animation: move 3s linear infinite alternate;
+}
+
+@keyframes move {
+    0%{
+        transform: translateY(-50%) translateX(0%);
+    }
+    25%{
+        transform: translateY(-40%) translateX(-40%);
+    }
+    50%{
+        transform: translateY(-30%) translateX(20%);
+    }
+    75%{
+        transform: translateY(-40%) translateX(40%);
+    }
+    100%{
+        transform: translateY(-40%) translateX(20%);
+    }
+}
+
+.main-block {
+    padding: 20px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.block-cards {
+    max-width: 500px;
+    width: 100%;
+    margin-bottom: 35px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 16px;
+}
+
+.card-item {
+    user-select: none;
+    width: 100%;
+    min-height: 110px;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+    perspective: 500px;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 550px) {
+    .card-item {
+        min-height: 80px;
+    }
+}
+
+@media (max-width: 410px) {
+    .card-item {
+        min-height: 17.07vw;
+    }
+}
+
+.card-item-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #fcb045;
+    border-radius: 14px;
+    transform: rotateY(180deg);
+    opacity: 0;
+    backface-visibility: hidden;
+    transition: all 0.5s ease-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-image {
+    width: 60%;
+    height: 60%;
+}
+
+.card-item-front {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: linear-gradient(45deg, #fcb045 70%, #fd1d1d 95%);
+    border-radius: 14px;
+    backface-visibility: hidden;
+    transform: rotateY(0deg);
+    opacity: 1;
+    transition: all 0.5s ease-out;
+}
+
+.item-front-active {
+    opacity: 0;
+    transform: rotateY(180deg);
+    transition: all 0.5s ease-out;
+}
+
+.item-back-active {
+    opacity: 1;
+    transform: rotateY(360deg);
+    transition: all 0.5s ease-out;
+}
+
+img {
+    touch-action: none;
+}
+
+.timer-block {
+    border: 6px solid black;
+    background-color: #b6fbff;
+    border-radius: 22px;
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+}
+
+.timer-image {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) translateX(-50%) scale(1);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    animation: pulse 0.5s ease-out infinite alternate;
+    animation-play-state: paused;
+}
+
+@media (max-width: 675px) {
+    .timer-image {
+        left: 20px;
+    }
+}
+
+.timer-image-warm {
+    animation-play-state: running;
+}
+
+@keyframes pulse {
+    to {
+        transform: translateY(-50%) translateX(-50%) scale(1.2);
+    }
+}
+
+.timer-image-item {
+    width: 100%;
+    height: 100%;
+}
+
+.timer-line {
+    width: 100%;
+    height: 30px;
+    border-radius: 20px;
+    background-color: #fd1d1d;
+    transition: all 0.2s linear;
+}
+
+/* overlay */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    background-color: #fff;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease-out;
+}
+
+.overlay-active {
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 0.3s ease-out;
+}
+
+/* modal winner or lose */
+.modal-message {
+    position: fixed;
+    z-index: 70;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
+    pointer-events: none;
+    color: #fff;
+    background-color: #000;
+    padding: 20px;
+    padding-top: 30px;
+    border-radius: 18px;
+    cursor: default;
+    user-select: none;
+    transition: all 0.3s ease-out;
+}
+
+.modal-message-active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 0.3s ease-out;
+}
+
+.modal-content {
+    width: 100%;
+    height: 100%;
+}
+
+.modal-emoji {
+    width: 100%;
+    margin-bottom: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-emoji-item {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal-title {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.modal-text {
+    font-size: 20px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.btn-close-modal {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 3px solid #fff;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px 0px #000, 0px 0px 0px 0px #fff;
+    transition: all 0.3s ease-out;
+}
+
+.btn-close-modal:hover {
+    box-shadow: 0px 0px 0px 2px #000, 0px 0px 0px 4px #fff;
+    transition: all 0.3s ease-out;
+}
+
+.button-restart {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    border: none;
+    font-size: 42px;
+    z-index: 60;
+    padding: 20px 30px;
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+    transition: all 0.3s ease-out;
+}
+
+.button-restart:active {
+    transform: translate(-50%, -40%);
+    transition: all 0.3s ease-out;
+}
+
+.button-restart:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: inherit;
+    background-color: inherit;
+    opacity: 0.4;
+    transform: translateY(15%);
+    z-index: -1;
+    transition: all 0.3s ease-out;
+}
+
+.button-restart:active:after {
+    transform: translateY(7%);
+    transition: all 0.3s ease-out;
+}
+
+.stat {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 60;
+    padding: 20px;
+    max-width: 300px;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #000;
+    color: #fff;
+    cursor: default;
+    transition: all 0.3s ease-out;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 0.3s ease-out;
+}
+
+.stat-title {
+    font-size: 28px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.close-stat {
+    padding: 12px 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.open-stat {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid black;
+    background-color: transparent;
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    transform: scale(0.9);
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.open-stat:hover {
+    transform: scale(1);
+    transition: all 0.3s ease-out;
+}
+
+.open-stat img {
+    width: 70%;
+    height: 70%;
+}
+
+
